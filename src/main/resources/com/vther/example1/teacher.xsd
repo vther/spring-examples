@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.vther.com/schema/teacher"
+            targetNamespace="http://www.vther.com/schema/teacher"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+
+    <xsd:element name="teacher">
+        <xsd:complexType>
+            <xsd:attribute name="name" type="xsd:string" use="required"/>
+            <xsd:attribute name="course" use="optional" default="chinese">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        Shorthand configuration to specify an Axon-provided IncomingMessageHandler
+                        implementation. Defaults to 'backlog'.
+                    </xsd:documentation>
+                </xsd:annotation>
+                <xsd:simpleType>
+                    <xsd:union memberTypes="xsd:string">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="chinese"/>
+                                <xsd:enumeration value="english"/>
+                                <xsd:enumeration value="music"/>
+                                <xsd:enumeration value="math"/>
+                                <xsd:enumeration value="sport"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:union>
+                </xsd:simpleType>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

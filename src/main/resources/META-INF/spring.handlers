@@ -1,0 +1,2 @@
+http\://www.vther.com/schema/student=com.vther.example1.VtherNamespaceHandler
+http\://www.vther.com/schema/teacher=com.vther.example1.VtherNamespaceHandler
