@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:school="http://www.vther.com/schema/school"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.vther.com/schema/school http://www.vther.com/schema/school/vther-school.xsd">
+
+    <school:school id="school" address="add--ByProperty" name="name--ByProperty">
+        <bean class="com.vther.example1.School">
+            <property name="address" value="address--ByBean"/>
+            <property name="name" value="PangTouLi--ByBean"/>
+        </bean>
+        <school:meta-data>
+            <entry key="key1" value="value1"/>
+            <entry key="key2" value="value2"/>
+        </school:meta-data>
+        <school:selectors>
+            <school:package prefix="this is package prefix"/>
+            <school:class-name-matches pattern="this is class-name-matches pattern"/>
+        </school:selectors>
+    </school:school>
+
+</beans>

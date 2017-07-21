@@ -1,2 +1,3 @@
 http\://www.vther.com/schema/student/vther-student.xsd=com/vther/example1/student.xsd
 http\://www.vther.com/schema/teacher/vther-teacher.xsd=com/vther/example1/teacher.xsd
+http\://www.vther.com/schema/school/vther-school.xsd=com/vther/example1/school.xsd

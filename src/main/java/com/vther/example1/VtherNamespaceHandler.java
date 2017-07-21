@@ -9,6 +9,7 @@ public class VtherNamespaceHandler extends NamespaceHandlerSupport {
     public void init() {
         registerBeanDefinitionParser("student", new StudentBeanDefinitionParser());
         registerBeanDefinitionParser("teacher", new TeacherBeanDefinitionParser());
+        registerBeanDefinitionParser("school", new SchoolBeanDefinitionParser());
     }
 
 }

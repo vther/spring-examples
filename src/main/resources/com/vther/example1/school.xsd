@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tool="http://www.springframework.org/schema/tool"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:beans="http://www.springframework.org/schema/beans"
+            xmlns="http://www.vther.com/schema/school"
+            targetNamespace="http://www.vther.com/schema/school"
+            elementFormDefault="qualified" attributeFormDefault="unqualified"
+            xsi:schemaLocation="http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd">
+
+
+    <xsd:import namespace="http://www.springframework.org/schema/beans"
+                schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"/>
+    <xsd:import namespace="http://www.springframework.org/schema/tool"
+                schemaLocation="http://www.springframework.org/schema/tool/spring-tool.xsd"/>
+
+    <xsd:element name="school">
+        <xsd:annotation>
+            <xsd:documentation>
+                Spring context schema extension for the definition
+                of a CommandBus instance.
+            </xsd:documentation>
+            <xsd:appinfo>
+                <tool:annotation>
+                    <!-- 这里表示最终导出的Bean的类型，即BeanDefinitionParser里面parse函数的返回值 -->
+                    <tool:exports type="com.vther.example1.School"/>
+                </tool:annotation>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <!-- 可以通过这种方式引入一个Bean，在parse函数里面进行解析 -->
+                <xsd:element ref="beans:bean" minOccurs="0"/>
+                <!-- 可以通过这种方式引入一个Map，在parse函数里面进行解析 -->
+                <xsd:element name="meta-data" type="beans:mapType" minOccurs="0"/>
+                <!-- 可以通过这种方式引入一个其他自定义类型，在parse函数里面进行解析 -->
+                <xsd:element name="selectors" type="selectorType" minOccurs="0">
+                    <xsd:annotation>
+                        <xsd:documentation>
+                            Describes the criteria an Event Listener must meet to be selected for this instance. One or
+                            more sub-elements should be provided to define the criteria.
+                        </xsd:documentation>
+                        <xsd:appinfo>
+                            <tool:annotation>
+                                <tool:exports type="org.axonframework.eventhandling.ClusterSelector"/>
+                            </tool:annotation>
+                        </xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:all>
+            <!-- shouldGenerateId为false时候，必须配置 -->
+            <xsd:attribute name="id" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[The unique identifier of this cluster. It serves as the bean ID as well as the Cluster's name]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="name" type="xsd:string" use="required"/>
+            <xsd:attribute name="address" type="xsd:string" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+
+
+    <xsd:complexType name="selectorType">
+        <xsd:choice minOccurs="1" maxOccurs="unbounded">
+            <xsd:element name="class-name-matches" type="selectorClassNamePatternMatchType"/>
+            <xsd:element name="package" type="selectorPackagePrefixType"/>
+        </xsd:choice>
+    </xsd:complexType>
+
+    <xsd:complexType name="selectorClassNamePatternMatchType">
+        <xsd:annotation>
+            <xsd:documentation>Defines a selector that will match an Event Listeners class name against a pattern.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="pattern" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="selectorPackagePrefixType">
+        <xsd:annotation>
+            <xsd:documentation>Defines a selector that will match an Event Listeners class name using its package.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:attribute name="prefix" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+</xsd:schema>
